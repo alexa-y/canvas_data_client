@@ -1,5 +1,6 @@
 require "canvas_data_client/version"
 
 module CanvasDataClient
-  # Your code goes here...
+  require 'canvas_data_client/helpers'
+  require 'canvas_data_client/client'
 end
