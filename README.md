@@ -35,7 +35,7 @@ List of methods:
 ```ruby
 client.latest_files # GET /api/account/(:accountId|self)/file/latest
 client.dumps # GET /api/account/(:accountId|self)/dump
-client.dump # GET /api/account/(:accountId|self)/file/byDump/:dumpId
+client.dump('b349ad95-4839-48f3-b763-ec555fc2f42f') # GET /api/account/(:accountId|self)/file/byDump/:dumpId
 client.tables('course_dim') # GET /api/account/(:accountId|self)/file/byTable/:tableName
 client.schemas # GET /api/schema
 client.latest_schema # GET /api/schema/latest
