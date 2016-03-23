@@ -1,15 +1,15 @@
 # CanvasDataClient
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/canvas_data_client`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem is meant to provide an easy-to-use ruby client wrapping the [Canvas](https://canvaslms.com) Hosted Data API.
 
-TODO: Delete this and the text above, and describe your gem
+It calculates and attaches HMAC signatures for each request, and returns the parsed JSON response.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'canvas_data_client'
+gem 'canvas_data_client', github: 'ben-y/canvas_data_client'
 ```
 
 And then execute:
@@ -22,13 +22,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The client can be initialized as such:
 
-## Development
+```ruby
+client = CanvasDataClient::Client.new(api_key, api_secret)
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+As much as possible, the methods available in the client match those given in the [API docs](https://portal.inshosteddata.com/docs/api)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+List of methods:
+
+```ruby
+client.latest_files # GET /api/account/(:accountId|self)/file/latest
+client.dumps # GET /api/account/(:accountId|self)/dump
+client.dump # GET /api/account/(:accountId|self)/file/byDump/:dumpId
+client.tables('course_dim') # GET /api/account/(:accountId|self)/file/byTable/:tableName
+client.schemas # GET /api/schema
+client.latest_schema # GET /api/schema/latest
+client.schema('1.0.0') # GET /api/schema/:version
+```
 
 ## Contributing
 
