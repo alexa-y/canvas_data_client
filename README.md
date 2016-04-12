@@ -16,10 +16,6 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install canvas_data_client
-
 ## Usage
 
 The client can be initialized as such:
@@ -40,6 +36,14 @@ client.tables('course_dim') # GET /api/account/(:accountId|self)/file/byTable/:t
 client.schemas # GET /api/schema
 client.latest_schema # GET /api/schema/latest
 client.schema('1.0.0') # GET /api/schema/:version
+
+# Downloads a table file from the specified dump (or all files for a table should the dump have multiple)
+# and writes them to a single CSV file.  This also includes a CSV header row of the column names
+# pulled from the schema definition
+client.download_to_csv_file(dump_id: 'b349ad95-4839-48f3-b763-ec555fc2f42f', table: 'requests', path: '/path/to/output_file.csv')
+
+# Same as #download_to_csv_file, but uses the latest dump available
+client.download_latest_to_csv_file(table: 'requests', path: '/path/to/output_file.csv')
 ```
 
 ## Contributing

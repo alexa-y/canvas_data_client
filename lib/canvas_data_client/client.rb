@@ -3,6 +3,7 @@ require 'rest-client'
 module CanvasDataClient
   class Client
     include CanvasDataClient::Helpers::HMACHelper
+    include CanvasDataClient::Helpers::CsvHelper
 
     attr_accessor :key, :secret, :subdomain, :account
 

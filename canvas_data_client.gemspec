@@ -6,7 +6,7 @@ require 'canvas_data_client/version'
 Gem::Specification.new do |spec|
   spec.name          = "canvas_data_client"
   spec.version       = CanvasDataClient::VERSION
-  spec.authors       = ["Ben Y"]
+  spec.authors       = ["Ben Young"]
   spec.email         = ["jyf0000@gmail.com"]
 
   spec.summary       = "Wraps the endpoints provided by Canvas Data."
