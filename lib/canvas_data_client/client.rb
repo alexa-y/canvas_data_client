@@ -24,15 +24,7 @@ module CanvasDataClient
     alias_method :latest, :latest_files
 
     def dumps
-      retrieved_dumps = []
-      sequence = '0'
-      loop do
-        resp = json_request "#{domain}/api/account/#{account}/dump?after=#{sequence}"
-        retrieved_dumps += resp
-        break if resp.length < 50
-        sequence = resp.last['sequence']
-      end
-      retrieved_dumps
+      paginated_request "#{domain}/api/account/#{account}/dump?after=%s"
     end
 
     def dump(dump_id)
@@ -40,15 +32,7 @@ module CanvasDataClient
     end
 
     def tables(table)
-      retrieved_tables = []
-      sequence = '0'
-      loop do
-        resp = json_request "#{domain}/api/account/#{account}/file/byTable/#{table}?after=#{sequence}"
-        retrieved_tables += resp['history']
-        break if resp['history'].length < 50
-        sequence = resp['history'].last['sequence']
-      end
-      retrieved_tables
+      paginated_request "#{domain}/api/account/#{account}/file/byTable/#{table}?after=%s"
     end
 
     def schemas
@@ -67,6 +51,20 @@ module CanvasDataClient
     def json_request(path, method = 'get')
       resp = RestClient.get path, headers(key, secret, { path: path, method: method })
       JSON.parse resp
+    end
+
+    def paginated_request(path)
+      received = []
+      sequence = '0'
+      loop do
+        resp = json_request(path % sequence)
+        resp = resp['history'] if resp.is_a?(Hash)
+        resp.sort_by! { |h| h['sequence'] }
+        received += resp
+        break if resp.length < 50
+        sequence = resp.last['sequence']
+      end
+      received
     end
 
   end
