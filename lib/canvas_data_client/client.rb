@@ -5,13 +5,14 @@ module CanvasDataClient
     include CanvasDataClient::Helpers::HMACHelper
     include CanvasDataClient::Helpers::CsvHelper
 
-    attr_accessor :key, :secret, :subdomain, :account
+    attr_accessor :key, :secret, :subdomain, :account, :logger
 
     def initialize(key, secret, opts = {})
       self.key = key
       self.secret = secret
       self.subdomain = opts[:subdomain] || 'portal'
       self.account = opts[:account] || 'self'
+      self.logger = Logger.new(STDOUT)
     end
 
     def domain

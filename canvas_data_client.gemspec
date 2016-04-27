@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
 
   spec.add_runtime_dependency "rest-client", "~> 1.8.0"
+  spec.add_runtime_dependency 'open_uri_redirections', '~> 0.2.1'
 end
